@@ -13,7 +13,9 @@ from tkinter import image_types
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageOps
-# import cv2
+import cv2 as cv
+
+
 
 ## Instantiate Parameters
 subplot_width = 2
