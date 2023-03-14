@@ -87,22 +87,91 @@ countours,hierarchy=cv2.findContours(dst,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 # draw contours
 print('number of contours: ' + str(len(countours)))
 
-### ------------------------ DISPLAY CONTOURS ----------------------------------
+### ------------------------ DISPLAY CONTOUR POPULATION ----------------------------------
 # for cnt in countours:
 #         cv2.drawContours(masked_img,[cnt],0,(0,0,255),2)
 #         cv2.imshow("Result",masked_img)
 #         cv2.waitKey(2)
-# # show image
+### ------------------------ UNCOMMENT TO SEE FOR LONG TIME ----------------------------------
+## show image
 # for cnt in countours:
 #         cnt_img = cv2.drawContours(masked_img,[cnt],0,(0,0,255),2)
 # cv2.imshow("Result",cnt_img)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
 
-print(countours)
+# print(countours)
 
 # TODO: 
 # turn each contour into the center coordinates of the contour
+# add a way to remove or add more dots
 # convert coordinates from pixels to physical dimensions
 # append coordinates to list
 # convert list into .xeo
+
+# flat_contours = np.array(countours).reshape(-1, 2)
+# split_contours = np.split(flat_contours, len(countours[0]), axis=0)
+
+### ------------------------ COMPUTE CENTERS ----------------------------------
+
+centers = []
+
+for contour in countours:
+    M = cv2.moments(contour)
+    if M["m00"] != 0:
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
+        centers.append((cX, cY))
+
+# print(centers)
+
+img_centers = img.copy() #np.zeros(np.shape(img))
+for center in centers:
+    x, y = center
+    img_centers[y][x] = [0, 0, 255]
+
+# cv2.imshow("Image with Centers",img_centers)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# cv2.imwrite("images/img_with_centers.jpg", img_centers)
+
+### ------------------------ ADD MISSED CENTERS AND DELETE ERRONEOUS ONES----------------------------------
+
+def on_mouse_click(event, x, y, flags, param):
+    global centers, img, img_centers
+    
+    if event == cv2.EVENT_LBUTTONDOWN: # add a new point
+        centers.append((x, y))
+        # draw a pixel at the clicked position
+        cv2.line(img_centers, (x, y), (x, y), (0, 0, 255), 1)
+    elif event == cv2.EVENT_RBUTTONDOWN: # remove a point
+        for i in range(len(centers)):
+            center = centers[i]
+            if abs(center[0] - x) < 5 and abs(center[1] - y) < 5:
+                del centers[i]
+                break
+        # redraw all the points
+        img_centers = img.copy() # clear the image
+        for center in centers:
+            cv2.line(img_centers, center, center, (0, 0, 255), 1)
+
+cv2.namedWindow('image')
+cv2.setMouseCallback('image', on_mouse_click)
+
+while True:
+    cv2.imshow('image', img_centers)
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('q'):
+        # cv2.imwrite("images/img_with_centers_added.jpg", img)
+        print("number of centers after additions: " + str(len(centers))) # could be a bug -- number of centers less than number of contours
+        break
+
+cv2.destroyAllWindows()
+
+### ------------------------ convert coordinates from pixels to physical dimensions
+
+
+### -------------------------- append coordinates to list
+
+
+### ---------------------------convert list into .xeo 
