@@ -185,81 +185,18 @@ while True:
 
 cv2.destroyAllWindows()
 
-### ----------- CONVERT COORDINATES FROM PIXELS TO PHYSICAL DIMENSIONS ---------
-# Going to have trouble because this needs to be very precise
-pixel_height = img_height / np.shape(img)[0]
-pixel_width = img_width / np.shape(img)[1]
+### ----------------------- SAVE CENTERS FOR LATER USE -------------------------
+# this allows us to tweak the row_y_delta until it is optimal
 
-print("pixel height: " + str(pixel_height))
-print("pixel width: " + str(pixel_width))
+with open("meta_data/centers.txt", "w") as f:
+    f.write(str(centers))
 
-centers_coordinates = [(pixel_x * pixel_width, pixel_y * pixel_height) for (pixel_x, pixel_y) in centers]# append coordinates to list
+with open("meta_data/height.txt", "w") as f:
+    f.write(str(img_height))
 
-# print("center coordinates list: \n" + str(centers_coordinates))
-### ------------------------------ SORT PIXELS ---------------------------------
+with open("meta_data/width.txt", "w") as f:
+    f.write(str(img_width))
 
-# def sort_pixels_by_row(pixels):
-#     # Define a key function that returns the row and column values of a pixel tuple
-#     def key_func(pixel):
-#         row = pixel[1] // 10  # Compute the row index based on y-coordinate (assuming 10-pixel rows)
-#         col = pixel[0]  # Column index is simply the x-coordinate
-#         return row, col
+with open("meta_data/rows.txt", "w") as f:
+    f.write(str(num_rows))
 
-#     # Sort the pixels using the key function
-#     sorted_pixels = sorted(pixels, key=key_func)
-    
-#     return sorted_pixels
-
-# centers_sorted = sort_pixels_by_row(centers)
-
-######
-
-# # sort center_coordinates based on each element's y-value 
-# center_coords_sorted = sorted(centers_coordinates, key=lambda x: x[1])
-
-# # now sort the x-values 
-# curr_row_y = center_coords_sorted[0][1] # y-value that will set the intialize the row value 
-# mat = [[]]
-# row_y_delta = 8 # sets the number of pixels above and below that will be included in a row
-
-# num_elems_up_to_curr_row = 0
-# elem = 0
-# row = 0
-# while not len(mat) >= num_rows:
-#     while curr_row_y <= row_y_delta:
-#         mat[row].append(center_coords_sorted[elem])
-#         elem += 1
-#     row += 1
-
-
-
-
-### --------------------------- GENERATE .XEO AS STRING ------------------------
-xeo_string = ""
-revision_number = 1.0 # update if making multiple .xeo files for the same image
-
-xeo_string += "<!-- " + img_filename_no_ext + ".xeo -->"
-xeo_string += "\n<!-- $Revision: " + str(revision_number) + " $ -->"
-xeo_string += "\n<PlateType>"
-xeo_string += "\n    <GlobalParameters PlateTypeName=\"" + img_filename + "\" ProbeType=\"MTP\""
-xeo_string += "\n                      RowsNumber=\"32\" ChipNumber=\"1\" ChipsInRow=\"0\""
-xeo_string += "\n                      X_ChipOffsetSize=\"0\" Y_ChipOffsetSize=\"0\""
-xeo_string += "\n                      HasDirectLabels=\"false\" HasColRowLabels=\"false\""
-xeo_string += "\n                      ProbeDiameterX=\"105.0282\" SampleDiameter=\"1.1423\" SamplePixelRadius=\"5\" ZoomFactor=\"1\""
-xeo_string += "\n                      HasNearNeighbourCalibrants=\"false\""
-xeo_string += "\n                      FirstCalibrant=\"X01Y01\" SecondCalibrant=\"X48Y01\" ThirdCalibrant=\"X24Y32\" />"
-xeo_string += "\n    <MappingParameters mox=\"0\" moy=\"0\" sinphi=\"0.000000\" cosphi=\"1.000000\" alpha=\"100000\" beta=\"100000\" tansigma=\"0.000000\" />"
-xeo_string += "\n    <PlateSpots PositionNumber=\"" + str(len(centers))+ "\">"
-
-inc = 0
-for (pixel_x, pixel_y) in centers_coordinates:
-    xeo_string += "\n        <PlateSpot PositionIndex=\"" + str(inc) + "\" PositionName=\"X01Y01\" UnitCoord_X=\"" + str(pixel_x) + "\" UnitCoord_Y=\"" + str(pixel_y) + "\"/>"
-    inc += 1
-
-xeo_string += "\n    </PlateSpots>"
-xeo_string += "\n</PlateType>"
-
-### --------------------------- SAVE .XEO FILE IN xeo_files ---------------------------
-xeo_filepath = "xeo_files/" + img_filename_no_ext + "_version_" + str(revision_number).replace(".", "_") + ".xeo"
-# with open(xeo_filepath, "w") as f:
-#     f.write(xeo_string)
