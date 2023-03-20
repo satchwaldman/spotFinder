@@ -47,7 +47,7 @@ def draw_rect(event, x, y, flags, param):
         fx, fy = x, y
 
 # read in the image
-img_filename_no_ext = "edited_dots_on_paper_1"
+img_filename_no_ext = "trial_1_second_edit"
 img_filename = img_filename_no_ext + ".jpg" # ENTER IMAGE FILEPATH
 folder = 'images'
 filepath = folder + '/' + img_filename
@@ -114,8 +114,8 @@ print('number of contours: ' + str(len(countours)))
 #         cv2.drawContours(masked_img,[cnt],0,(0,0,255),2)
 #         cv2.imshow("Result",masked_img)
 #         cv2.waitKey(2)
-### ------------------------ UNCOMMENT TO SEE FOR LONG TIME --------------------
-## show image
+# ## ------------------------ UNCOMMENT TO SEE FOR LONG TIME --------------------
+# # show image
 # for cnt in countours:
 #         cnt_img = cv2.drawContours(masked_img,[cnt],0,(0,0,255),2)
 # cv2.imshow("Result",cnt_img)

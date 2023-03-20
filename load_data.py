@@ -14,7 +14,7 @@ with open('rows.txt', 'r') as file:
     num_rows = float(file.read())
 
 # read in the image
-img_filename_no_ext = "edited_dots_on_paper_1" # ENTER IMAGE FILEPATH
+img_filename_no_ext = "plate_with_paper" # ENTER IMAGE FILEPATH
 img_filename = img_filename_no_ext + ".jpg" 
 folder = 'images'
 filepath = folder + '/' + img_filename
@@ -61,7 +61,7 @@ sorted_mat = [sorted(mat_row) for mat_row in mat]
 # print(len(sorted_mat))
 
 ### ---------------------------- DISPLAY ---------------------------------------
-display = True
+display = False
 if display: 
     blank_img = np.zeros((918, 1398, 3))
     color = 1
@@ -97,7 +97,7 @@ else:
 
     ### --------------------------- GENERATE .XEO AS STRING ------------------------
     xeo_string = ""
-    revision_number = 3.0 # update if making multiple .xeo files for the same image
+    revision_number = 1.0 # update if making multiple .xeo files for the same image
 
     xeo_string += "<!-- " + img_filename_no_ext + ".xeo -->"
     xeo_string += "\n<!-- $Revision: " + str(revision_number) + " $ -->"

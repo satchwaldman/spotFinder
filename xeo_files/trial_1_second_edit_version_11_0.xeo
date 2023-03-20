@@ -1,0 +1,22 @@
+<!-- trial_1_second_edit.xeo -->
+<!-- $Revision: 11.0 $ -->
+<PlateType>
+    <GlobalParameters PlateTypeName="trial_1_second_edit.jpg" ProbeType="MTP"
+                      RowsNumber="32" ChipNumber="1" ChipsInRow="0"
+                      X_ChipOffsetSize="0" Y_ChipOffsetSize="0"
+                      HasDirectLabels="false" HasColRowLabels="false"
+                      ProbeDiameterX="105.0282" SampleDiameter="1.1423" SamplePixelRadius="5" ZoomFactor="1"
+                      HasNearNeighbourCalibrants="false"
+                      FirstCalibrant="X01Y01" SecondCalibrant="X48Y01" ThirdCalibrant="X24Y32" />
+    <MappingParameters mox="0" moy="0" sinphi="0.000000" cosphi="1.000000" alpha="100000" beta="100000" tansigma="0.000000" />
+    <PlateSpots PositionNumber="384">
+        <PlateSpot PositionIndex="0" PositionName="X1Y1" UnitCoord_X="[-0.8507890961262554, 0.9080962800875274]" UnitCoord_Y="[-0.8134863701578192, 0.9080962800875274]"/>
+        <PlateSpot PositionIndex="1" PositionName="X1Y2" UnitCoord_X="[-0.8507890961262554, 0.8512035010940919]" UnitCoord_Y="[-0.8134863701578192, 0.8512035010940919]"/>
+        <PlateSpot PositionIndex="2" PositionName="X1Y3" UnitCoord_X="[-0.8507890961262554, 0.7921225382932167]" UnitCoord_Y="[-0.8134863701578192, 0.7921225382932167]"/>
+        <PlateSpot PositionIndex="3" PositionName="X1Y4" UnitCoord_X="[-0.8507890961262554, 0.7330415754923414]" UnitCoord_Y="[-0.8134863701578192, 0.7330415754923414]"/>
+        <PlateSpot PositionIndex="4" PositionName="X1Y5" UnitCoord_X="[-0.8507890961262554, 0.6739606126914661]" UnitCoord_Y="[-0.8134863701578192, 0.6739606126914661]"/>
+        <PlateSpot PositionIndex="5" PositionName="X1Y6" UnitCoord_X="[-0.8507890961262554, 0.6148796498905909]" UnitCoord_Y="[-0.8134863701578192, 0.6148796498905909]"/>
+        <PlateSpot PositionIndex="6" PositionName="X1Y7" UnitCoord_X="[-0.8507890961262554, 0.5557986870897156]" UnitCoord_Y="[-0.8134863701578192, 0.5557986870897156]"/>
+        <PlateSpot PositionIndex="7" PositionName="X1Y8" UnitCoord_X="[-0.8507890961262554, 0.49671772428884026]" UnitCoord_Y="[-0.8134863701578192, 0.49671772428884026]"/>
+    </PlateSpots>
+</PlateType>
