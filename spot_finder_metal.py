@@ -87,30 +87,7 @@ while True:
 
 masked_img[np.all(masked_img == (0,0,0), axis=-1)] = (255,255,255)
 
-# cv2.imwrite("images/img_with_mask.jpg", masked_img)
-
 ### ------------------------- GENERATE DOTS ------------------------------------
-
-# inter_dot_x_dist = np.abs(initial_x - final_x) / num_columns - 1
-# inter_dot_y_dist = np.abs(initial_y - final_y) / num_rows - 1 # subtract 1 when masking on centers of outside dots
-
-# # curr_dot = [ix + inter_dot_x_dist / 2, iy + inter_dot_y_dist / 2]
-# curr_dot = [initial_x, initial_y]
-
-# dots_matrix_floats = []
-
-# for row in range(num_rows_int):
-#     dots_matrix_floats.append([])
-#     for col in range(num_columns_int):
-#         dots_matrix_floats[row].append(curr_dot)
-#         curr_dot = [curr_dot[0] + inter_dot_x_dist, curr_dot[1]]
-#     # curr_dot = [ix - inter_dot_x_dist / 2, curr_dot[1] + inter_dot_y_dist]
-#     curr_dot = [ix, curr_dot[1] + inter_dot_y_dist]
-
-# dots_matrix = [[[int(num) for num in sublist] for sublist in nested_list] for nested_list in dots_matrix_floats]
-
-
-##### 
 
 x_vals = np.linspace(int(initial_x), int(final_x), num_columns_int)
 y_vals = np.linspace(int(initial_y), int(final_y), num_rows_int)
@@ -152,157 +129,7 @@ for row_idx in range(len(y_vals)):
 # cv2.imshow("Image", img_with_dots)
 # cv2.waitKey(0)
 
-### -------------------------- MOVE CENTERS ------------------------------------
-
-# dots_matrix_np = np.array(dots_matrix)
-# coordinates_floats = dots_matrix_np.reshape(-1, 2)
-# coordinates = coordinates_floats.astype(int, copy=False)
-
-# # print(coordinates)
-
-# # Define the color of the selected pixel
-# selected_color = (0, 255, 0)  # Green
-
-# # Define the function to display the image
-# def display_image():
-#     img_copy = img.copy()#np.zeros((100, 100, 3), np.uint8)
-#     for coord in coordinates:
-#         img_copy[coord[1], coord[0]] = (0, 0, 255)  # Red
-#     cv2.imshow('image', img_copy)
-
-# # Define the mouse callback function
-# def mouse_callback(event, x, y, flags, param):
-#     global selected_index
-#     if event == cv2.EVENT_LBUTTONDOWN:
-#         selected_coord = (y, x)  # Reverse the order of x, y
-#         print('Selected pixel:', selected_coord)
-#         # Map the pixel coordinates to the corresponding index in the 2D matrix
-#         selected_index = np.argmin(np.sum(np.abs(coordinates - selected_coord), axis=1))
-#         print('Selected index:', selected_index)
-#         # Display the selected pixel
-#         img_copy = img.copy() # np.zeros((100, 100, 3), np.uint8)  # Create a blank image
-#         img_copy[coordinates[selected_index][0], coordinates[selected_index][1]] = selected_color
-#         cv2.imshow('image', img_copy)
-
-# # Define the keyboard callback function
-# def keyboard_callback(key):
-#     global selected_index
-#     global coordinates
-#     # Move the selected pixel based on the arrow key pressed
-#     if key == ord('w'):
-#         coordinates[selected_index][0] -= 1  # Move up
-#     elif key == ord('s'):
-#         coordinates[selected_index][0] += 1  # Move down
-#     elif key == ord('a'):
-#         coordinates[selected_index][1] -= 1  # Move left
-#     elif key == ord('d'):
-#         coordinates[selected_index][1] += 1  # Move right
-#     # Update the image to reflect the new position of the selected pixel
-#     img_copy = img.copy()#np.zeros((100, 100, 3), np.uint8)
-#     for coord in coordinates:
-#         img_copy[coord[1], coord[0]] = (0, 0, 255)  # Red
-#     img_copy[coordinates[selected_index][0], coordinates[selected_index][1]] = selected_color
-#     cv2.imshow('image', img_copy)
-
-# # Display the image
-# display_image()
-
-# # Set up the mouse callback function
-# cv2.setMouseCallback('image', mouse_callback)
-
-# # Set up the keyboard callback function
-# while True:
-#     key = cv2.waitKey(0)
-#     if key == 27:  # Esc key
-#         break
-#     keyboard_callback(key)
-
-# # Close all windows
-# cv2.destroyAllWindows()
-
-#####
-
-# img = cv2.imread('images/trial_1_second_edit.jpg') 
-
-# Define the 2D matrix of coordinates
-# coordinates = np.array([[10, 10], [20, 20], [30, 30], [40, 40], [50, 50]])
-
-# coordinates_2d = np.array([[[10, 10], [20, 10], [30, 10]], [[10, 20], [20, 20], [30, 20]], [[10, 30], [20, 30], [30, 30]]])
-# coords_2d_flat = coordinates_2d.reshape(-1, 2)
-# coordinates = coords_2d_flat
-
-# dots_matrix_np = np.array(dots_matrix)
-# coordinates_floats = dots_matrix_np.reshape(-1, 2)
-# coordinates = coordinates_floats.astype(int, copy=False)
-
-# with open("coordinates.txt", "w") as f:
-#     f.write(str(coordinates))
-
-# print(coordinates)
-
-
-# # Define the color of the selected pixel
-# selected_color = (0, 255, 0)  # Green
-
-# # Define the function to display the image
-# def display_image():
-#     curr_img = cv2.imread('images/trial_1_second_edit.jpg') #np.zeros((100, 100, 3), np.uint8)
-#     for coord in coordinates:
-#         curr_img[coord[1], coord[0]] = (0, 0, 255)  # Red
-#     cv2.imshow('image', curr_img)
-
-# # Define the mouse callback function
-# def mouse_callback(event, x, y, flags, param):
-#     global selected_index
-#     if event == cv2.EVENT_LBUTTONDOWN:
-#         selected_coord = (y, x)  # Reverse the order of x, y
-#         print('Selected pixel:', selected_coord)
-#         # Map the pixel coordinates to the corresponding index in the 2D matrix
-#         selected_index = np.argmin(np.sum(np.abs(coordinates - selected_coord), axis=1))
-#         print('Selected index:', selected_index)
-#         # Display the selected pixel
-#         curr_img = cv2.imread('images/trial_1_second_edit.jpg') #np.zeros((100, 100, 3), np.uint8)  # Create a blank image
-#         curr_img[coordinates[selected_index][0], coordinates[selected_index][1]] = selected_color
-#         cv2.imshow('image', curr_img)
-
-# # Define the keyboard callback function
-# def keyboard_callback(key):
-#     global selected_index
-#     global coordinates
-#     # Move the selected pixel based on the arrow key pressed
-#     if key == ord('w'):
-#         coordinates[selected_index][0] -= 1  # Move up
-#     elif key == ord('s'):
-#         coordinates[selected_index][0] += 1  # Move down
-#     elif key == ord('a'):
-#         coordinates[selected_index][1] -= 1  # Move left
-#     elif key == ord('d'):
-#         coordinates[selected_index][1] += 1  # Move right
-#     # Update the image to reflect the new position of the selected pixel
-#     curr_img = cv2.imread('images/trial_1_second_edit.jpg') #np.zeros((100, 100, 3), np.uint8)
-#     for coord in coordinates:
-#         curr_img[coord[1], coord[0]] = (0, 0, 255)  # Red
-#     curr_img[coordinates[selected_index][0], coordinates[selected_index][1]] = selected_color
-#     cv2.imshow('image', curr_img)
-
-# # Display the image
-# display_image()
-
-# # Set up the mouse callback function
-# cv2.setMouseCallback('image', mouse_callback)
-
-# # Set up the keyboard callback function
-# while True:
-#     key = cv2.waitKey(0)
-#     if key == 27:  # Esc key
-#         break
-#     keyboard_callback(key)
-
-# # Close all windows
-# cv2.destroyAllWindows()
-
-
-##########
+### -------------------------- MANUALLY ADJUST CENTERS ------------------------------------
 
 # Define the 2D matrix of coordinates
 
@@ -310,14 +137,13 @@ dots_matrix_np = np.array(dots_matrix)
 coords_2d_flat = dots_matrix_np.reshape(-1, 2)
 
 coordinates = np.array([[int(x), int(y)] for [y, x] in coords_2d_flat])
-# print(coordinates)
 
 # Define the color of the selected pixel
 selected_color = (0, 255, 0)  # Green
 
 # Define the function to display the image
 def display_image():
-    img_temp = img.copy()# np.zeros((918, 1398, 3), np.uint8)
+    img_temp = img.copy()
     for coord in coordinates:
         img_temp[coord[0], coord[1]] = (0, 0, 255)  # Red
     cv2.imshow('image', img_temp)
@@ -340,6 +166,7 @@ def mouse_callback(event, x, y, flags, param):
 def keyboard_callback(key):
     global selected_index
     global coordinates
+
     # Move the selected pixel based on the arrow key pressed
     if key == ord('w'):
         coordinates[selected_index][0] -= 1  # Move up
@@ -349,8 +176,9 @@ def keyboard_callback(key):
         coordinates[selected_index][1] -= 1  # Move left
     elif key == ord('d'):
         coordinates[selected_index][1] += 1  # Move right
+
     # Update the image to reflect the new position of the selected pixel
-    img_temp = img.copy()#np.zeros((918, 1398, 3), np.uint8)
+    img_temp = img.copy()
     for coord in coordinates:
         img_temp[coord[0], coord[1]] = (0, 0, 255)  # Red
     img_temp[coordinates[selected_index][0], coordinates[selected_index][1]] = selected_color
@@ -385,29 +213,18 @@ cv2.destroyAllWindows()
 
 # y: top down -> pos - neg
 # x: left right -> neg - pos
-# print(coordinates)
-# print(len(img))
-# print(len(img[0]))
 
 coordinates_scaled = []
 for [y, x] in coordinates:
     x_new = 2 * ((x - len(img[0]) / 2) / len(img[0]))
     y_new = 2 * ((len(img) / 2 - y) / len(img))
     coordinates_scaled.append([x_new, y_new])
-    print([x_new, y_new])
-
-# coordinates_scaled = [[2 * ((x - len(img[0]) / 2) / len(img[0])), 2 * ((len(img) / 2 - y) / len(img))] for [y, x] in coordinates] ### TODO -- scale coords to 1,1
-
 
 result_matrix = np.zeros((num_rows_int, num_columns_int, 2))
-# result_matrix = []
 start_idx = 0
 for row in range(num_rows_int):
-    # result_matrix.append([coordinates_scaled[start_idx: start_idx + num_columns_int]])
     result_matrix[row] = coordinates_scaled[start_idx: start_idx + num_columns_int]
     start_idx += num_columns_int
-
-    print(coordinates_scaled[start_idx: start_idx + num_columns_int])
 
 ### --------------------------- GENERATE .XEO AS STRING ------------------------
 xeo_string = ""
